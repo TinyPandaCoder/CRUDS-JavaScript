@@ -1,9 +1,10 @@
 "use strict";
 
-const inputs = document.querySelectorAll("input");
+const inputs = document.querySelectorAll("form input");
 const tableBody = document.querySelector("tbody");
 const form = document.getElementById("form");
 const sub = document.getElementById("sub");
+const cancel = document.getElementById("cancelUpdate");
 const search = document.getElementById("search");
 
 // If there is no such key it will return null so short circuit it with empty array
@@ -11,10 +12,10 @@ let arrProducts = JSON.parse(localStorage.getItem("products")) || [];
 let idCounter = JSON.parse(localStorage.getItem("id")) || 0;
 
 // Loops through products array and converting the elements into corresponding html
-const renderTable = (filteredProducts = arrProducts) => {
-  tableBody.innerHTML = "";
-  filteredProducts.forEach((prod, idx) => {
-    const newRow = `<tr class="align-baseline">
+const renderTable = (finalProducts = arrProducts) => {
+  tableBody.innerHTML = finalProducts
+    .map(
+      (prod, idx) => `<tr class="align-baseline">
                 <th scope="row">${idx + 1}</th>
                 <td>${prod.name}</td>
                 <td>${prod.price}</td>
@@ -24,15 +25,15 @@ const renderTable = (filteredProducts = arrProducts) => {
                   <div class="action d-flex justify-content-center gap-3">
                     <button data-action="update" data-id="${
                       prod.id
-                    }" class="update btn p-2 rounded">Update &nbsp;&nbsp;<i class="icon-loop2"></i></button>
+                    }" class="update btn p-2 rounded">Update <i class="icon-loop2"></i></button>
                     <button data-action="delete" data-id="${
                       prod.id
-                    }" class="delete btn p-2 rounded">Delete &nbsp;&nbsp;<i class="icon-bin"></i></button>
+                    }" class="delete btn p-2 rounded">Delete <i class="icon-bin"></i></button>
                   </div>
                 </td>
-              </tr>`;
-    tableBody.innerHTML += newRow;
-  });
+              </tr>`
+    )
+    .join("");
 };
 
 //initial Render for rendering the old values in local storage
@@ -44,28 +45,30 @@ const getData = () => {
     price: null,
     cat: null,
     desc: null,
-    id: null,
+    id: idCounter++,
   };
   let i = 0;
   for (const key in product) {
+    if (key === "id") break;
     product[key] = inputs[i].value;
     i++;
   }
   return product;
 };
 
-const resetInput = () => {
-  inputs.forEach((elem) => (elem.value = ""));
-};
+const resetInput = () =>
+  inputs.forEach(
+    (elem) =>
+      elem.classList.remove("is-invalid", "is-valid") || (elem.value = "")
+  );
 
 // ************ Create **************
 const createProduct = () => {
   arrProducts = [...arrProducts, getData()];
-  arrProducts.at(-1).id = idCounter++;
+  localStorage.setItem("products", JSON.stringify(arrProducts));
   localStorage.setItem("id", idCounter);
   renderTable();
   resetInput();
-  localStorage.setItem("products", JSON.stringify(arrProducts));
 };
 // ************ Create **************
 
@@ -79,62 +82,63 @@ const deleteProduct = (id) => {
 
 // ************ Update **************
 const prepareUpdate = (id) => {
-  let i = 0;
-  for (const key in arrProducts[id]) {
-    inputs[i].value = arrProducts[id][key];
-    i++;
-  }
+  const product = arrProducts.find((prod) => prod.id == id);
+  Object.keys(product).forEach((key, index) => {
+    if (key !== "id") inputs[index].value = product[key];
+  });
   form.dataset.action = "update";
   form.dataset.id = id;
-  sub.innerHTML = `Add Product&nbsp;&nbsp;<i class="icon-loop2"></i>`;
+  sub.innerHTML = `Update Product&nbsp;&nbsp;<i class="icon-loop2"></i>`;
+  cancel.classList.remove("d-none");
 };
 const updateProduct = (id) => {
-  arrProducts[id] = getData();
-  renderTable();
+  const index = arrProducts.findIndex((prod) => prod.id == id);
+  arrProducts[index] = getData();
+  arrProducts[index].id = id;
   form.dataset.action = "add";
   form.dataset.id = null;
   sub.innerHTML = `Add Product&nbsp;&nbsp;<i class="icon-magic-wand"></i>`;
-  resetInput();
   localStorage.setItem("products", JSON.stringify(arrProducts));
+  resetInput();
+  renderTable();
+};
+const cancelUpdate = () => {
+  resetInput();
+  form.dataset.action = "add";
+  form.dataset.id = null;
+  sub.innerHTML = `Add Product&nbsp;&nbsp;<i class="icon-magic-wand"></i>`;
+  cancel.classList.add("d-none");
 };
 // ************ Update **************
 
 // ************ Search ***************
-const handleSearch = (e) => {
-  console.log(e);
-  const query = e.target.value.toLowerCase();
-  const filteredProducts = arrProducts.filter(
-    (prod) =>
-      prod.name.toLowerCase().includes(query) ||
-      prod.price.toLowerCase().includes(query) ||
-      prod.cat.toLowerCase().includes(query) ||
-      prod.desc.toLowerCase().includes(query)
+const handleSearch = (e) =>
+  renderTable(
+    arrProducts.filter((prod) =>
+      Object.values(prod).some((val) =>
+        String(val).toLowerCase().includes(e.target.value.toLowerCase())
+      )
+    )
   );
-  renderTable(filteredProducts); // Render the filtered results
-};
+
 // ************ Search ***************
 
 // Name Validation
 const isValidName = () => {
-  const reg = /^[A-Z][\sa-zA-Z0-9]*$/;
-  if (reg.test(inputs[0].value)) {
-    inputs[0].classList.add("is-valid");
-    inputs[0].classList.remove("is-invalid");
-  } else {
-    inputs[0].classList.remove("is-valid");
-    inputs[0].classList.add("is-invalid");
-  }
-  return reg.test(inputs[0].value);
+  const isValid = /^[A-Z][\sa-zA-Z0-9]*$/.test(inputs[0].value);
+  inputs[0].classList.toggle("is-valid", isValid);
+  inputs[0].classList.toggle("is-invalid", !isValid);
+  return isValid;
 };
 
-const isVlaidForm = () => {
+const isValidForm = () => {
   return isValidName();
 };
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  if (!isVlaidForm()) return;
+  if (!isValidForm()) return;
 
   if (form.dataset.action == "add") createProduct();
   else {
@@ -158,3 +162,5 @@ search.addEventListener("input", (e) => {
 inputs[0].addEventListener("input", (e) => {
   isValidName();
 });
+
+cancel.addEventListener("click", cancelUpdate);
