@@ -18,17 +18,13 @@ This simple CRUDS (Create, Read, Update, Delete, Search) application built using
 - style.css: Custom CSS for styling.
 - icons/style.css: For including icons from a CSS icon library `(Icon Moon)`.
 
-## Installation and Usage
-1. Clone the repository:
-   ```
-   git clone https://github.com/your-username/CRUDS-JavaScript.git
-   ```
-2. Navigate to the project directory:
-   ```
-   cd CRUDS-JavaScript
-   ```
-3. Open index.html in your browser
-   ```
-   Open index.html
-   ```
+## Live Demo
+   Check out the live demo here [Product Tracker](https://tinypandacoder.github.io/CRUDS-JavaScript/).
+
+## Screen Shot
+![image](https://github.com/user-attachments/assets/e9b9ffdb-7ae4-424a-80b3-a8ab2ed89eba)
+
+
+# Mahmoud Alaa - Developer and creator of this project.
+
 
