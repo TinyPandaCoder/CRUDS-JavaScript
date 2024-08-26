@@ -17,3 +17,12 @@ This simple CRUDS (Create, Read, Update, Delete, Search) application built using
 - bootstrap.min.css: Utilized for additional styling and layout.
 - style.css: Custom CSS for styling.
 - icons/style.css: For including icons from a CSS icon library `(Icon Moon)`.
+
+## Installation and Usage
+1. Clone the repository:
+   ```git clone https://github.com/your-username/CRUDS-JavaScript.git```
+2. Navigate to the project directory:
+   ```cd CRUDS-JavaScript```
+3. Open index.html in your browser
+   ```Open index.html```
+
