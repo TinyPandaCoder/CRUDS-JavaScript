@@ -2,6 +2,8 @@ const inputs = document.querySelectorAll("input");
 const tableBody = document.querySelector("tbody");
 const form = document.getElementById("form");
 const sub = document.getElementById("sub");
+
+// If there is no such key it will return null so short circuit it with empty array
 let arrProducts = JSON.parse(localStorage.getItem("products")) || [];
 
 // Loops through products array and converting the elements into corresponding html
