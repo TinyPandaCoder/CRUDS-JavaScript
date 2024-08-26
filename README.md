@@ -11,12 +11,30 @@ This simple CRUDS (Create, Read, Update, Delete, Search) application built using
 - Data Persistence: Product data is stored in the browser's localStorage for persistence across sessions.
 
 ## Project Structure
-- index.html: Contains the structure of the web page.
-- style.css: Includes custom styles for the UI.
-- main.js: Handles all the CRUD operations, form validations, and event listeners.
-- bootstrap.min.css: Utilized for additional styling and layout.
-- style.css: Custom CSS for styling.
-- icons/style.css: For including icons from a CSS icon library `(Icon Moon)`.
+```
+│───index.html
+│───README.md
+│
+├───icons
+│   │   style.css
+│   │
+│   └───fonts
+│           icomoon.eot
+│           icomoon.svg
+│           icomoon.ttf
+│           icomoon.woff
+│
+├───imgs
+│       title-icon.png
+│
+├───js
+│       bootstrap.bundle.min.js
+│       main.js
+│
+└───style
+        bootstrap.min.css
+        style.css
+        ```
 
 ## Live Demo
    Check out the live demo here [Product Tracker](https://tinypandacoder.github.io/CRUDS-JavaScript/).
