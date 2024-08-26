@@ -91,7 +91,7 @@ const updateProduct = (idx) => {
 };
 // ************ Update **************
 
-// ************ Search **************
+// ************ Search ***************
 const handleSearch = (e) => {
   console.log(e);
   const query = e.target.value.toLowerCase();
@@ -104,7 +104,7 @@ const handleSearch = (e) => {
   );
   renderTable(filteredProducts); // Render the filtered results
 };
-// ************ Search **************
+// ************ Search ***************
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
