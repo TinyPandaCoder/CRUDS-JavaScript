@@ -8,6 +8,7 @@ const search = document.getElementById("search");
 
 // If there is no such key it will return null so short circuit it with empty array
 let arrProducts = JSON.parse(localStorage.getItem("products")) || [];
+let idCounter = JSON.parse(localStorage.getItem("id")) || 0;
 
 // Loops through products array and converting the elements into corresponding html
 const renderTable = (filteredProducts = arrProducts) => {
@@ -21,8 +22,12 @@ const renderTable = (filteredProducts = arrProducts) => {
                 <td>${prod.desc}</td>
                 <td>
                   <div class="action d-flex justify-content-center gap-3">
-                    <button data-action="update" data-idx="${idx}" class="update btn p-2 rounded">Update &nbsp;&nbsp;<i class="icon-loop2"></i></button>
-                    <button data-action="delete" data-idx="${idx}" class="delete btn p-2 rounded">Delete &nbsp;&nbsp;<i class="icon-bin"></i></button>
+                    <button data-action="update" data-id="${
+                      prod.id
+                    }" class="update btn p-2 rounded">Update &nbsp;&nbsp;<i class="icon-loop2"></i></button>
+                    <button data-action="delete" data-id="${
+                      prod.id
+                    }" class="delete btn p-2 rounded">Delete &nbsp;&nbsp;<i class="icon-bin"></i></button>
                   </div>
                 </td>
               </tr>`;
@@ -39,6 +44,7 @@ const getData = () => {
     price: null,
     cat: null,
     desc: null,
+    id: null,
   };
   let i = 0;
   for (const key in product) {
@@ -55,37 +61,38 @@ const resetInput = () => {
 // ************ Create **************
 const createProduct = () => {
   arrProducts = [...arrProducts, getData()];
+  arrProducts.at(-1).id = idCounter++;
+  localStorage.setItem("id", idCounter);
   renderTable();
   resetInput();
   localStorage.setItem("products", JSON.stringify(arrProducts));
 };
-
 // ************ Create **************
 
 // ************ Delete **************
-const deleteProduct = (idx) => {
-  arrProducts = arrProducts.filter((_, i) => i != idx);
+const deleteProduct = (id) => {
+  arrProducts = arrProducts.filter((prod) => prod.id != id);
   renderTable();
   localStorage.setItem("products", JSON.stringify(arrProducts));
 };
 // ************ Delete **************
 
 // ************ Update **************
-const prepareUpdate = (idx) => {
+const prepareUpdate = (id) => {
   let i = 0;
-  for (const key in arrProducts[idx]) {
-    inputs[i].value = arrProducts[idx][key];
+  for (const key in arrProducts[id]) {
+    inputs[i].value = arrProducts[id][key];
     i++;
   }
   form.dataset.action = "update";
-  form.dataset.idx = idx;
+  form.dataset.id = id;
   sub.innerHTML = `Add Product&nbsp;&nbsp;<i class="icon-loop2"></i>`;
 };
-const updateProduct = (idx) => {
-  arrProducts[idx] = getData();
+const updateProduct = (id) => {
+  arrProducts[id] = getData();
   renderTable();
   form.dataset.action = "add";
-  form.dataset.idx = null;
+  form.dataset.id = null;
   sub.innerHTML = `Add Product&nbsp;&nbsp;<i class="icon-magic-wand"></i>`;
   resetInput();
   localStorage.setItem("products", JSON.stringify(arrProducts));
@@ -131,16 +138,16 @@ form.addEventListener("submit", (e) => {
 
   if (form.dataset.action == "add") createProduct();
   else {
-    updateProduct(Number(form.dataset.idx));
+    updateProduct(Number(form.dataset.id));
   }
 });
 
 tableBody.addEventListener("click", (e) => {
   if (e.target.dataset.action == "update") {
-    prepareUpdate(e.target.dataset.idx);
+    prepareUpdate(e.target.dataset.id);
   }
   if (e.target.dataset.action == "delete") {
-    deleteProduct(e.target.dataset.idx);
+    deleteProduct(e.target.dataset.id);
   }
 });
 
