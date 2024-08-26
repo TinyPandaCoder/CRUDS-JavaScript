@@ -1,5 +1,5 @@
 # Products Tracker
-Hello and welcome 🙋‍♂
+Hello 🙋‍♂
 This simple CRUDS (Create, Read, Update, Delete, Search) application built using HTML, CSS, and JavaScript (Vanilla JavaScript) to manage a list of products. This project allows users to add, update, delete, and search for products. All data is stored locally using localStorage, making it easy to use without the need for a backend server and is checked using regular expression.
 
 ## Features
