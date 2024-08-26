@@ -1,3 +1,5 @@
+"use strict";
+
 const inputs = document.querySelectorAll("input");
 const tableBody = document.querySelector("tbody");
 const form = document.getElementById("form");
@@ -25,7 +27,6 @@ const renderTable = (filteredProducts = arrProducts) => {
                 </td>
               </tr>`;
     tableBody.innerHTML += newRow;
-    return prod;
   });
 };
 
@@ -106,8 +107,28 @@ const handleSearch = (e) => {
 };
 // ************ Search ***************
 
+// Name Validation
+const isValidName = () => {
+  const reg = /^[A-Z][\sa-zA-Z0-9]*$/;
+  if (reg.test(inputs[0].value)) {
+    inputs[0].classList.add("is-valid");
+    inputs[0].classList.remove("is-invalid");
+  } else {
+    inputs[0].classList.remove("is-valid");
+    inputs[0].classList.add("is-invalid");
+  }
+  return reg.test(inputs[0].value);
+};
+
+const isVlaidForm = () => {
+  return isValidName();
+};
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+
+  if (!isVlaidForm()) return;
+
   if (form.dataset.action == "add") createProduct();
   else {
     updateProduct(Number(form.dataset.idx));
@@ -125,4 +146,8 @@ tableBody.addEventListener("click", (e) => {
 
 search.addEventListener("input", (e) => {
   handleSearch(e);
+});
+
+inputs[0].addEventListener("input", (e) => {
+  isValidName();
 });

@@ -25,22 +25,29 @@
         </h1>
       </header>
       <main class="mb-5">
-        <form data-action="add" data-idx="" id="form" class="mb-4">
+        <form
+          data-action="add"
+          data-idx=""
+          id="form"
+          class="mb-4 needs-validation"
+          novalidate
+        >
           <div class="mb-3">
             <label for="name" class="form-label d-flex gap-2 align-items-center"
               >Product Name <i class="icon-address-card"></i
             ></label>
             <input
               autocomplete="oppo"
-              placeholder="Enter poduct name"
+              placeholder="Ex: Oppo F9"
               type="text"
               class="form-control"
               id="name"
               required
               aria-describedby="Product Name"
             />
-            <div id="nameHelp" class="form-text d-none">
-              We'll never share your email with anyone else.
+            <div class="invalid-feedback">
+              Please start with capital letter followed by English charcters or
+              numbers
             </div>
           </div>
           <div class="mb-3">
@@ -48,7 +55,7 @@
               >Product Price <i class="icon-price-tags"></i
             ></label>
             <input
-              placeholder="Enter poduct price"
+              placeholder="EX: 12000 EGP"
               type="text"
               class="form-control"
               id="price"
@@ -63,7 +70,7 @@
               >Product Category <i class="icon-category"></i
             ></label>
             <input
-              placeholder="Enter poduct category"
+              placeholder="EX: Mobile Phones"
               type="text"
               class="form-control"
               id="category"
@@ -75,7 +82,7 @@
               >Product Description <i class="icon-description"></i
             ></label>
             <input
-              placeholder="Enter poduct description"
+              placeholder="EX: RAM 16GB"
               type="text"
               class="form-control"
               id="desc"
