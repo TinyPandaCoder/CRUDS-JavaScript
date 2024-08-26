@@ -1,11 +1,12 @@
 const inputs = document.querySelectorAll("input");
 const tableBody = document.querySelector("tbody");
+const form = document.getElementById("form");
+const sub = document.getElementById("sub");
 let arrProducts = [];
 
 // Loops through products array and converting the elements into corresponding html
 const renderTable = () => {
   tableBody.innerHTML = "";
-  console.log(arrProducts);
   arrProducts.forEach((prod, idx) => {
     const newRow = `<tr class="align-baseline">
                 <th scope="row">${idx + 1}</th>
@@ -33,7 +34,6 @@ const getData = () => {
     desc: null,
   };
   let i = 0;
-
   for (const key in product) {
     product[key] = inputs[i].value;
     i++;
@@ -41,34 +41,55 @@ const getData = () => {
   return product;
 };
 
+// Create
 const createProduct = () => {
   arrProducts = [...arrProducts, getData()];
   renderTable();
+  resetInput();
+};
 
-  // Reset Input
+const resetInput = () => {
   inputs.forEach((elem) => (elem.value = ""));
 };
+
+// Delete
 const deleteProduct = (idx) => {
   arrProducts = arrProducts.filter((_, i) => i != idx);
   renderTable();
 };
-const updateProduct = (idx) => {
+
+// ************ Update **************
+const prepareUpdate = (idx) => {
   let i = 0;
-  for (const key in arrProducts[i]) {
+  for (const key in arrProducts[idx]) {
     inputs[i].value = arrProducts[idx][key];
     i++;
   }
-  renderTable();
+  form.dataset.action = "update";
+  form.dataset.idx = idx;
+  sub.innerHTML = "Update Product";
 };
+const updateProduct = (idx) => {
+  arrProducts[idx] = getData();
+  renderTable();
+  form.dataset.action = "add";
+  form.dataset.idx = null;
+  sub.innerHTML = "Add Product";
+  resetInput();
+};
+// ************ Update **************
 
-document.getElementById("form").addEventListener("submit", (e) => {
+form.addEventListener("submit", (e) => {
   e.preventDefault();
-  createProduct();
+  if (form.dataset.action == "add") createProduct();
+  else {
+    updateProduct(Number(form.dataset.idx));
+  }
 });
 
 tableBody.addEventListener("click", (e) => {
   if (e.target.dataset.action == "update") {
-    updateProduct(e.target.dataset.idx);
+    prepareUpdate(e.target.dataset.idx);
   }
   if (e.target.dataset.action == "delete") {
     deleteProduct(e.target.dataset.idx);

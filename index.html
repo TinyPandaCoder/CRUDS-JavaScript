@@ -18,7 +18,7 @@
     <div class="container">
       <header><h1>Products Tracker</h1></header>
       <main class="mb-5 pb-5">
-        <form id="form" class="mb-4">
+        <form data-action="add" data-idx="" id="form" class="mb-4">
           <div class="mb-3">
             <label for="name" class="form-label">Product Name</label>
             <input
@@ -66,7 +66,7 @@
             />
           </div>
 
-          <button type="submit" class="btn">Add Product</button>
+          <button id="sub" type="submit" class="btn">Add Product</button>
         </form>
         <table class="table">
           <thead>
