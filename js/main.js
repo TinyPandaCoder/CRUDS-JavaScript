@@ -16,8 +16,8 @@ const renderTable = () => {
                 <td>${prod.desc}</td>
                 <td>
                   <div class="action d-flex justify-content-center gap-3">
-                    <button data-action="update" data-idx="${idx}" class="update btn p-2 rounded">Update</button>
-                    <button data-action="delete" data-idx="${idx}" class="delete btn p-2 rounded">Delete</button>
+                    <button data-action="update" data-idx="${idx}" class="update btn p-2 rounded">Update &nbsp;&nbsp;<i class="icon-loop2"></i></button>
+                    <button data-action="delete" data-idx="${idx}" class="delete btn p-2 rounded">Delete &nbsp;&nbsp;<i class="icon-bin"></i></button>
                   </div>
                 </td>
               </tr>`;
@@ -67,14 +67,14 @@ const prepareUpdate = (idx) => {
   }
   form.dataset.action = "update";
   form.dataset.idx = idx;
-  sub.innerHTML = "Update Product";
+  sub.innerHTML = `Add Product&nbsp;&nbsp;<i class="icon-loop2"></i>`;
 };
 const updateProduct = (idx) => {
   arrProducts[idx] = getData();
   renderTable();
   form.dataset.action = "add";
   form.dataset.idx = null;
-  sub.innerHTML = "Add Product";
+  sub.innerHTML = `Add Product&nbsp;&nbsp;<i class="icon-magic-wand"></i>`;
   resetInput();
 };
 // ************ Update **************
