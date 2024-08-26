@@ -16,4 +16,4 @@ This simple CRUDS (Create, Read, Update, Delete, Search) application built using
 - main.js: Handles all the CRUD operations, form validations, and event listeners.
 - bootstrap.min.css: Utilized for additional styling and layout.
 - style.css: Custom CSS for styling.
-- icons/style.css: For including icons from a CSS icon library `**Icon Moon**`.
+- icons/style.css: For including icons from a CSS icon library `(Icon Moon)`.
