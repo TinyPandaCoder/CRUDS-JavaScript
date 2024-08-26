@@ -20,9 +20,15 @@ This simple CRUDS (Create, Read, Update, Delete, Search) application built using
 
 ## Installation and Usage
 1. Clone the repository:
-   ```git clone https://github.com/your-username/CRUDS-JavaScript.git```
+   ```
+   git clone https://github.com/your-username/CRUDS-JavaScript.git
+   ```
 2. Navigate to the project directory:
-   ```cd CRUDS-JavaScript```
+   ```
+   cd CRUDS-JavaScript
+   ```
 3. Open index.html in your browser
-   ```Open index.html```
+   ```
+   Open index.html
+   ```
 
