@@ -31,6 +31,7 @@
               >Product Name <i class="icon-address-card"></i
             ></label>
             <input
+              autocomplete="oppo"
               placeholder="Enter poduct name"
               type="text"
               class="form-control"
@@ -52,7 +53,7 @@
               id="price"
               aria-describedby="Product Price"
             />
-            <div id="nameHelp" class="form-text d-none">
+            <div id="numberHelp" class="form-text d-none">
               Please enter valid number
             </div>
           </div>
@@ -85,6 +86,18 @@
             Add Product&nbsp;<i class="icon-magic-wand"></i>
           </button>
         </form>
+        <div class="my-3 w-50 m-auto d-flex align-items-center gap-3">
+          <input
+            placeholder="Search products..."
+            type="text"
+            class="form-control"
+            id="search"
+            aria-describedby="Product Search"
+          />
+          <label for="search" class="form-label m-0 fs-4"
+            ><i class="icon-search"></i
+          ></label>
+        </div>
         <table class="table">
           <thead>
             <tr>

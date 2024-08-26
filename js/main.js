@@ -2,14 +2,15 @@ const inputs = document.querySelectorAll("input");
 const tableBody = document.querySelector("tbody");
 const form = document.getElementById("form");
 const sub = document.getElementById("sub");
+const search = document.getElementById("search");
 
 // If there is no such key it will return null so short circuit it with empty array
 let arrProducts = JSON.parse(localStorage.getItem("products")) || [];
 
 // Loops through products array and converting the elements into corresponding html
-const renderTable = () => {
+const renderTable = (filteredProducts = arrProducts) => {
   tableBody.innerHTML = "";
-  arrProducts.forEach((prod, idx) => {
+  filteredProducts.forEach((prod, idx) => {
     const newRow = `<tr class="align-baseline">
                 <th scope="row">${idx + 1}</th>
                 <td>${prod.name}</td>
@@ -90,6 +91,21 @@ const updateProduct = (idx) => {
 };
 // ************ Update **************
 
+// ************ Search **************
+const handleSearch = (e) => {
+  console.log(e);
+  const query = e.target.value.toLowerCase();
+  const filteredProducts = arrProducts.filter(
+    (prod) =>
+      prod.name.toLowerCase().includes(query) ||
+      prod.price.toLowerCase().includes(query) ||
+      prod.cat.toLowerCase().includes(query) ||
+      prod.desc.toLowerCase().includes(query)
+  );
+  renderTable(filteredProducts); // Render the filtered results
+};
+// ************ Search **************
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   if (form.dataset.action == "add") createProduct();
@@ -105,4 +121,8 @@ tableBody.addEventListener("click", (e) => {
   if (e.target.dataset.action == "delete") {
     deleteProduct(e.target.dataset.idx);
   }
+});
+
+search.addEventListener("input", (e) => {
+  handleSearch(e);
 });

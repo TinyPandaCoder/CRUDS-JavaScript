@@ -113,3 +113,17 @@ footer {
   margin: auto;
   padding-bottom: 0.5rem;
 }
+
+.icon-search {
+  display: block;
+  color: #fff;
+  background-color: rgb(0, 163, 178);
+  padding: 0.7rem;
+  border-radius: 50%;
+  transition: 0.5s ease;
+}
+
+.icon-search:hover {
+  transform: rotate(360deg);
+  cursor: pointer;
+}
