@@ -17,8 +17,8 @@
   <body>
     <div class="container">
       <header><h1>Products Tracker</h1></header>
-      <main>
-        <form class="mb-4">
+      <main class="mb-5 pb-5">
+        <form id="form" class="mb-4">
           <div class="mb-3">
             <label for="name" class="form-label">Product Name</label>
             <input
@@ -66,12 +66,12 @@
             />
           </div>
 
-          <button id="sub" type="submit" class="btn">Add Product</button>
+          <button type="submit" class="btn">Add Product</button>
         </form>
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">index</th>
+              <th scope="col">Product#</th>
               <th scope="col">Product Name</th>
               <th scope="col">Product Price</th>
               <th scope="col">Product Category</th>
@@ -80,14 +80,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
+            <tr class="align-baseline">
+              <th scope="row">0</th>
+              <td>Oppo F9</td>
+              <td>10k EGP</td>
+              <td>Phones</td>
+              <td>
+                For demonstration purpose only, the CRUD system doesn't work
+                here
+              </td>
+              <td>
+                <div class="action d-flex justify-content-center gap-3">
+                  <button class="update btn" class="p-2 rounded">Update</button>
+                  <button class="delete btn" class="p-2 rounded">Delete</button>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
