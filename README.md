@@ -37,7 +37,7 @@ This simple CRUDS (Create, Read, Update, Delete, Search) application built using
 ```
 
 ## Live Demo
-   Check out the live demo here [Product Tracker](https://tinypandacoder.github.io/CRUDS-JavaScript/).
+   Check out the live demo here [Product Tracker](https://mahmoudalaa3.github.io/CRUDS-JavaScript/).
 
 ## Screen Shot
 ![image](https://github.com/user-attachments/assets/e9b9ffdb-7ae4-424a-80b3-a8ab2ed89eba)
