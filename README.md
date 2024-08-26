@@ -34,7 +34,7 @@ This simple CRUDS (Create, Read, Update, Delete, Search) application built using
 └───style
         bootstrap.min.css
         style.css
-        ```
+```
 
 ## Live Demo
    Check out the live demo here [Product Tracker](https://tinypandacoder.github.io/CRUDS-JavaScript/).
