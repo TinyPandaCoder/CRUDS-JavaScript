@@ -2,7 +2,7 @@ const inputs = document.querySelectorAll("input");
 const tableBody = document.querySelector("tbody");
 const form = document.getElementById("form");
 const sub = document.getElementById("sub");
-let arrProducts = [];
+let arrProducts = JSON.parse(localStorage.getItem("products")) || [];
 
 // Loops through products array and converting the elements into corresponding html
 const renderTable = () => {
@@ -26,6 +26,9 @@ const renderTable = () => {
   });
 };
 
+//initial Render for rendering the old values in local storage
+renderTable();
+
 const getData = () => {
   let product = {
     name: null,
@@ -41,22 +44,27 @@ const getData = () => {
   return product;
 };
 
-// Create
-const createProduct = () => {
-  arrProducts = [...arrProducts, getData()];
-  renderTable();
-  resetInput();
-};
-
 const resetInput = () => {
   inputs.forEach((elem) => (elem.value = ""));
 };
 
-// Delete
+// ************ Create **************
+const createProduct = () => {
+  arrProducts = [...arrProducts, getData()];
+  renderTable();
+  resetInput();
+  localStorage.setItem("products", JSON.stringify(arrProducts));
+};
+
+// ************ Create **************
+
+// ************ Delete **************
 const deleteProduct = (idx) => {
   arrProducts = arrProducts.filter((_, i) => i != idx);
   renderTable();
+  localStorage.setItem("products", JSON.stringify(arrProducts));
 };
+// ************ Delete **************
 
 // ************ Update **************
 const prepareUpdate = (idx) => {
@@ -76,6 +84,7 @@ const updateProduct = (idx) => {
   form.dataset.idx = null;
   sub.innerHTML = `Add Product&nbsp;&nbsp;<i class="icon-magic-wand"></i>`;
   resetInput();
+  localStorage.setItem("products", JSON.stringify(arrProducts));
 };
 // ************ Update **************
 
